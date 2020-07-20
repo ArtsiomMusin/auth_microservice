@@ -1,4 +1,7 @@
 class User < Sequel::Model
+  associate :one_to_many, :sessions, class: 'UserSession'
+  plugin :secure_password
+
   NAME_FORMAT = %r{\A\w+\z}
 
   def validate

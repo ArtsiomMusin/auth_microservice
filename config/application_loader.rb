@@ -6,6 +6,8 @@ module ApplicationLoader
     init_db
     require_app
     init_app
+    load_hooks
+    load_debugger
   end
 
   private
@@ -20,11 +22,24 @@ module ApplicationLoader
 
   def require_app
     require_file 'config/application'
+    require_file 'app/services/basic_service'
     require_dir 'app'
   end
 
   def init_app
     require_dir 'config/initializers'
+  end
+
+  def load_hooks
+    UserSession.plugin :uuid, field: :uuid
+    User.plugin :association_dependencies
+    User.add_association_dependencies sessions: :destroy
+  end
+
+  def load_debugger
+    return unless %w[test development].include?(ENV['RACK_ENV'])
+
+    require 'byebug'
   end
 
   def require_file(path)

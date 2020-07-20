@@ -21,6 +21,8 @@ gem 'dry-validation'
 gem 'activesupport'
 gem 'jsonapi-serializer'
 
+gem 'sequel_secure_password'
+
 group :development do
   gem 'byebug'
 end

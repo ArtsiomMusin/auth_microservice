@@ -14,5 +14,13 @@ Sequel.migration do
       
       index [:email], :name=>:users_email_key, :unique=>true
     end
+    
+    create_table(:user_sessions) do
+      primary_key :id, :type=>:Bignum
+      String :uuid, :text=>true, :null=>false
+      foreign_key :user_id, :users, :key=>[:id]
+      DateTime :created_at, :size=>6, :null=>false
+      DateTime :updated_at, :size=>6, :null=>false
+    end
   end
 end
