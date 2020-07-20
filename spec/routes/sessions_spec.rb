@@ -1,18 +1,18 @@
-RSpec.describe 'Sessions API', type: :request do
+RSpec.describe UserRoutes, type: :route do
   describe 'POST /login' do
     context 'missing parameters' do
       it 'returns an error' do
-        post '/login', params: { email: 'bob@example.com', password: '' }
+        post '/login', email: 'bob@example.com'
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(last_response.status).to eq(422)
       end
     end
 
     context 'invalid parameters' do
       it 'returns an error' do
-        post '/login', params: { email: 'bob@example.com', password: 'invalid' }
+        post '/login', email: 'bob@example.com', password: 'invalid'
 
-        expect(response).to have_http_status(:unauthorized)
+        expect(last_response.status).to eq(401)
         expect(response_body['errors']).to include('detail' => 'Сессия не может быть создана')
       end
     end
@@ -27,9 +27,9 @@ RSpec.describe 'Sessions API', type: :request do
       end
 
       it 'returns created status' do
-        post '/login', params: { email: 'bob@example.com', password: 'givemeatoken' }
+        post '/login', email: 'bob@example.com', password: 'givemeatoken'
 
-        expect(response).to have_http_status(:created)
+        expect(last_response.status).to eq(201)
         expect(response_body['meta']).to eq('token' => token)
       end
     end

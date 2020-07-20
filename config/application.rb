@@ -1,6 +1,10 @@
 class Application < Sinatra::Base
+  helpers Validations 
+
   configure do
     register Sinatra::Namespace
+    register ApiErrors
+    register Auth
 
     set :app_file, File.expand_path('../config.ru', __dir__)
   end
@@ -10,8 +14,4 @@ class Application < Sinatra::Base
 
     set :show_exception, false
   end
-
-  # get '/' do
-  #   json settings: Settings.db
-  # end
 end

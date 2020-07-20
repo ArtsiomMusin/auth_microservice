@@ -1,18 +1,18 @@
-RSpec.describe 'Users API', type: :request do
+RSpec.describe UserRoutes, type: :route do
   describe 'POST /signup' do
     context 'missing parameters' do
       it 'returns an error' do
-        post '/signup', params: { name: 'bob', email: 'bob@example.com', password: '' }
+        post '/signup', name: 'bob', email: 'bob@example.com', password: ''
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(last_response.status).to eq(422)
       end
     end
 
     context 'invalid parameters' do
       it 'returns an error' do
-        post '/signup', params: { name: 'b.o.b', email: 'bob@example.com', password: 'givemeatoken' }
+        post '/signup', name: 'b.o.b', email: 'bob@example.com', password: 'givemeatoken'
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(last_response.status).to eq(422)
         expect(response_body['errors']).to include(
           {
             'detail' => 'Укажите имя, используя буквы, цифры или символ подчёркивания',
@@ -26,9 +26,9 @@ RSpec.describe 'Users API', type: :request do
 
     context 'valid parameters' do
       it 'returns created status' do
-        post '/signup', params: { name: 'bob', email: 'bob@example.com', password: 'givemeatoken' }
-
-        expect(response).to have_http_status(:created)
+        post '/signup', name: 'bob', email: 'bob@example.com', password: 'givemeatoken'
+        
+        expect(last_response.status).to eq(201)
       end
     end
   end

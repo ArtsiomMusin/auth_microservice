@@ -22,6 +22,7 @@ gem 'activesupport'
 gem 'jsonapi-serializer'
 
 gem 'sequel_secure_password'
+gem 'jwt'
 
 group :development do
   gem 'byebug'
