@@ -1,6 +1,6 @@
 class UserRoutes < Application
   post '/signup' do
-    user_params = validate_with!(UserParamsContract)
+    user_params = validate_with!(UserParamsContract, params: params)
     result = Users::CreateService.call(*user_params.to_h.values)
 
     if result.success?
@@ -12,7 +12,7 @@ class UserRoutes < Application
   end
 
   post '/login' do
-    session_params = validate_with(SessionParamsContract)
+    session_params = validate_with!(SessionParamsContract, params: params)
     result = UserSessions::CreateService.call(*session_params.to_h.values)
 
     if result.success?
