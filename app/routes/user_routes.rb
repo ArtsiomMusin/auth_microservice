@@ -20,7 +20,7 @@ class UserRoutes < Application
       meta = { token: token }
 
       status 201
-      json({ meta: meta })
+      json(meta: meta)
     else
       status 401
       error_response(result.session || result.errors)

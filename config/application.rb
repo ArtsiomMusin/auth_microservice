@@ -1,10 +1,9 @@
 class Application < Sinatra::Base
-  helpers Validations 
+  helpers Validations, Auth
 
   configure do
     register Sinatra::Namespace
     register ApiErrors
-    register Auth
 
     set :app_file, File.expand_path('../config.ru', __dir__)
   end
