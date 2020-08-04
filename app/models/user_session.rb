@@ -1,5 +1,4 @@
-class UserSession < Sequel::Model
-  include Validations
+class UserSession < Base
   many_to_one :user
 
   def validate

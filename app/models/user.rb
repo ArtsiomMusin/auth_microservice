@@ -1,5 +1,4 @@
-class User < Sequel::Model
-  include Validations
+class User < Base
   associate :one_to_many, :sessions, class: 'UserSession'
   plugin :secure_password
 
