@@ -1,15 +1,19 @@
-module Auth
+class AuthService
+  include ApiErrors
+  prepend BasicService
+
+  param :token
+
+  attr_reader :user
+
   AUTH_TOKEN = %r{\ABearer (?<token>.+)\z}
 
-  def auth_user
+  def call
     result = Auth::FetchUserService.call(extracted_token['uuid'])
-
-    if result.success?
-      @current_user = result.user
-    else
-      error_response(result.errors, :forbidden)
-    end
+    @user = result.user if result.success?
   end
+
+  private
 
   def extracted_token
     JwtEncoder.decode(matched_token)
@@ -18,13 +22,9 @@ module Auth
   end
 
   def matched_token
-    result = auth_header&.match(AUTH_TOKEN)
+    result = @token.match(AUTH_TOKEN)
     return if result.blank?
 
     result[:token]
-  end
-
-  def auth_header
-    request.headers['Authorization']
   end
 end

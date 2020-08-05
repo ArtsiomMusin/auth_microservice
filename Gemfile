@@ -24,6 +24,8 @@ gem 'jsonapi-serializer'
 gem 'sequel_secure_password'
 gem 'jwt'
 
+gem 'bunny', '>= 2.14.1'
+
 group :development do
   gem 'byebug'
 end
