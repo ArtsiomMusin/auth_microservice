@@ -1,4 +1,9 @@
+app:
+  name: auth
 db:
   adapter: postgresql
   host: localhost
   user: postgres
+logger:
+  path: log/app.log
+  level: info
