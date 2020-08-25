@@ -1,5 +1,5 @@
 class Application < Sinatra::Base
-  helpers Validations, Auth
+  helpers Validations
 
   configure do
     register Sinatra::Namespace

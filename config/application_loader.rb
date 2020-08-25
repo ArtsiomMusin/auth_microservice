@@ -5,6 +5,7 @@ module ApplicationLoader
     init_config
     init_db
     require_app
+    init_lib
     init_app
     load_hooks
     load_debugger
@@ -26,6 +27,10 @@ module ApplicationLoader
     require_file 'config/application'
     require_file 'app/services/basic_service'
     require_dir 'app'
+  end
+
+  def init_lib
+    require_dir 'lib'
   end
 
   def init_app
