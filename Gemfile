@@ -29,6 +29,8 @@ gem 'bunny', '>= 2.14.1'
 gem 'rack-ougai'
 gem 'amazing_print'
 
+gem 'prometheus-client'
+
 group :development do
   gem 'byebug'
 end
